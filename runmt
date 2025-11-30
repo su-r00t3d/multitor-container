@@ -1,3 +1,11 @@
 #!/bin/bash
-multitor --init "$TOR_INSTANCES" --user debian-tor --socks-port 9000 --control-port 9900 --proxy privoxy --haproxy
+#
+#
+if [ $MT_USE_HAPROXY -eq 1 ]; then
+    echo "Using haproxy"
+    _haproxy="--haproxy"
+else
+    _haproxy=""
+fi
+multitor --init "${TOR_INSTANCES}" --user debian-tor --socks-port "${MT_SOCKS_PORT}"  --control-port "${MT_CTRL_PORT}"  --proxy "${MT_PROXY}" $_haproxy
 /bin/bash
